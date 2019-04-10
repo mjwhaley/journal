@@ -6,18 +6,18 @@ api = Blueprint('categories', __name__)
 
 categories_schema = CategorySchema()
 
-
+#Show all
 @api.route('/categories', methods=['GET'])
 def index():
     categories = Category.query.all()
 
     return categories_schema.jsonify(categories, many=True), 200
-
+#Show by id
 @api.route('/categories/<int:category_id>', methods=['GET'])
 def show(category_id):
     category = Category.query.get(category_id)
     return categories_schema.jsonify(category), 200
-
+#Create
 @api.route('/categories', methods=['POST'])
 @secure_route
 def create():
@@ -28,7 +28,7 @@ def create():
     category.creator = g.current_user
     category.save()
     return categories_schema.jsonify(category)
-
+#Edit
 @api.route('/categories/<int:category_id>', methods=['PUT'])
 @secure_route
 def update(category_id):
