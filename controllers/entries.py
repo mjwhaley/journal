@@ -28,7 +28,7 @@ def create():
     entry, errors = entry_schema.load(data)
     if errors:
         return jsonify(errors), 422
-    category = Category.query.get(data['entry_id'])
+    category = Category.query.get(data['category_id'])
     entry.creator = g.current_user
     entry.categories.append(category)
     entry.save()

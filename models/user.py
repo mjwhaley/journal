@@ -60,7 +60,7 @@ class UserSchema(ma.ModelSchema, BaseSchema):
 
     created_entries = fields.Nested('EntrySchema', many=True)
 
-    likes = fields.Nested('EntrySchema', many=True, only=('id', 'name'))
+    likes = fields.Nested('EntrySchema', many=True, only=('id', 'username'))
 
     class Meta:
         model = User

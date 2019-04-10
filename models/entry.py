@@ -2,14 +2,13 @@ from app import db, ma
 from marshmallow import fields
 from models.category import Category
 from .base import BaseModel
-from .user import User
+from .user import User, UserSchema
 
 likes = db.Table(
     'likes',
     db.Column('entry_id', db.Integer, db.ForeignKey('entries.id')),
     db.Column('user_id', db.Integer, db.ForeignKey('users.id'))
 )
-
 
 categories_entries = db.Table('categories_entries',
     db.Column('categories_id', db.Integer, db.ForeignKey('categories.id'), primary_key=True),
@@ -32,7 +31,7 @@ class Entry(db.Model, BaseModel):
 
 class EntrySchema(ma.ModelSchema):
     comments = fields.Nested('CommentSchema', many=True, exclude=('entry',))
-    categories = fields.Nested('CategorySchema', many=True, exclude=('entries',))
+    categories = fields.Nested('CategorySchema', many=True)
     creator = fields.Nested('UserSchema', only=('id', 'username'))
     liked_by = fields.Nested('UserSchema', many=True, only=('id', 'username'))
     class Meta:

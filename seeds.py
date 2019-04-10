@@ -21,12 +21,12 @@ with app.app_context():
 
     db.session.add(matt)
 
-    hiking = Category(name='hiking')
-    kayaking = Category(name='kayaking')
-    sightseeing = Category(name='sightseeing')
-    relaxing = Category(name='relaxing')
-    running = Category(name='running')
-    biking = Category(name='biking')
+    hiking = Category(name='hiking', creator=matt)
+    kayaking = Category(name='kayaking', creator=matt)
+    sightseeing = Category(name='sightseeing', creator=matt)
+    relaxing = Category(name='relaxing', creator=matt)
+    running = Category(name='running', creator=matt)
+    biking = Category(name='biking', creator=matt)
 
     entry1 = Entry(title='entry 1 title', description='entry 1 decription', mapLocation='400', public=False, header_image='bbc.com',
     categories=[hiking, kayaking], creator=matt, liked_by=[matt])
