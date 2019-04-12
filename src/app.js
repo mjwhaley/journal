@@ -1,23 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Browser, Route, Switch } from 'react-router-dom'
-import 'materialize-css'
-import 'react-materialize'
 
-import Nav from './components/common/nav'
-import Home from './components/common/home'
-import Footer from './components/common/footer'
+import Nav from './nav'
+import Entries from './entries/entries'
+
 
 const App = () => {
   return (
     <Browser>
       <div>
-        <Nav />
-        <Switch>
-          <Route path="/"component={Home} />
-
-
-        </Switch>
+      <Nav />
+        <Route path="/" component={Entries} />
       </div>
     </Browser>
   )

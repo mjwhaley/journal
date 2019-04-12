@@ -19,7 +19,8 @@ class Entry(db.Model, BaseModel):
     __tablename__ = 'entries'
 
     title = db.Column(db.String(80), nullable=False, unique=True)
-    mapLocation = db.Column(db.String(80), nullable=False)
+    mapLat = db.Column(db.Float(10), nullable=False)
+    mapLng = db.Column(db.Float(10), nullable=False)
     tags = db.Column(db.String(80))
     description = db.Column(db.String, nullable=False)
     public = db.Column(db.Boolean, nullable=False)

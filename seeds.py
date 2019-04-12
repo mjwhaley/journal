@@ -28,18 +28,18 @@ with app.app_context():
     running = Category(name='running', creator=matt)
     biking = Category(name='biking', creator=matt)
 
-    entry1 = Entry(title='entry 1 title', description='entry 1 decription', mapLocation='400', public=False, header_image='bbc.com',
+    entry1 = Entry(title='entry 1 title', description='entry 1 decription', mapLat=51.3865, mapLng=0.5095, public=False, header_image='https://images.unsplash.com/photo-1496672541024-d5ffffdfa045?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3070&q=80',
     categories=[hiking, kayaking], creator=matt, liked_by=[matt])
-    entry2 = Entry(title='entry 2 title', description='entry 2 decription', mapLocation='400', public=True, header_image='bbc.com',
-    categories=[hiking, sightseeing])
-    entry3 = Entry(title='entry 3 title', description='entry 3 decription', mapLocation='400', public=True, header_image='bbc.com',
-    categories=[sightseeing])
-    entry4 = Entry(title='entry 4 title', description='entry 4 decription', mapLocation='400', public=False, header_image='bbc.com',
-    categories=[relaxing], creator=matt)
-    entry5 = Entry(title='entry 5 title', description='entry 5 decription', mapLocation='400', public=False, header_image='bbc.com',
-    categories=[running, hiking])
-    entry6 = Entry(title='entry 6 title', description='entry 6 decription', mapLocation='400', public=False, header_image='bbc.com',
-    categories=[biking, hiking])
+    entry2 = Entry(title='entry 2 title', description='entry 2 decription', mapLat=51.3865, mapLng=0.5095, public=True, header_image='https://images.unsplash.com/photo-1481391032119-d89fee407e44?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1301&q=80',
+    categories=[hiking, sightseeing], creator=matt, liked_by=[matt])
+    entry3 = Entry(title='entry 3 title', description='entry 3 decription', mapLat=51.3865, mapLng=0.5095, public=True, header_image='https://images.unsplash.com/photo-1475503572774-15a45e5d60b9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80',
+    categories=[sightseeing], creator=matt, liked_by=[matt])
+    entry4 = Entry(title='entry 4 title', description='entry 4 decription', mapLat=51.3865, mapLng=0.5095, public=False, header_image='https://images.unsplash.com/photo-1526819945808-268890ae8b32?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80',
+    categories=[relaxing], creator=matt, liked_by=[matt])
+    entry5 = Entry(title='entry 5 title', description='entry 5 decription', mapLat=51.3865, mapLng=0.5095, public=False, header_image='https://images.unsplash.com/photo-1524654458049-e36be0721fa2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80',
+    categories=[running, hiking], creator=matt, liked_by=[matt])
+    entry6 = Entry(title='entry 6 title', description='entry 6 decription', mapLat=51.3865, mapLng=0.5095, public=False, header_image='https://images.unsplash.com/photo-1549383625-61676f103009?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2689&q=80',
+    categories=[biking, hiking], creator=matt, liked_by=[matt])
 
     comment1 = Comment(content='Love this post', entry=entry1)
     comment2 = Comment(content='Love this post', entry=entry2)

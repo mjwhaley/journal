@@ -2,7 +2,6 @@ import React, {Fragment} from 'react'
 import 'bulma'
 import axios from 'axios'
 import Group from './group'
-import CreateGroup from './createGroup'
 import Auth from '../../lib/auth'
 
 class Entries extends React.Component {
