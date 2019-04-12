@@ -3,7 +3,7 @@ import axios from 'axios'
 import Auth from '../../lib/auth'
 import { Button, Modal, Icon } from 'react-materialize'
 
-const trigger = <li><a href="#">Model</a></li>
+const trigger = <Button type="submit" waves="light" className="left orange">Register<Icon right>send</Icon></Button>
 
 class Register extends React.Component {
   constructor() {
@@ -14,7 +14,7 @@ class Register extends React.Component {
         username: '',
         email: '',
         password: '',
-        passwordConfirmation: ''
+        password_confirmation: ''
       }
     }
 
@@ -46,7 +46,7 @@ class Register extends React.Component {
 
   render() {
     return(
-      <Modal header="Register" trigger={trigger}>
+      <div className="model" header="Register" trigger={trigger}>
         <div className="row">
           <form className="col s12" onSubmit={this.handleSubmit}>
             <div className="input-field col s12">
@@ -86,8 +86,8 @@ class Register extends React.Component {
                 id="passwordConfirmation"
                 type="password"
                 className="validate"
-                name="passwordConfirmation"
-                value={this.state.data.passwordConfirmation}
+                name="password_confirmation"
+                value={this.state.data.password_confirmation}
                 onChange={this.handleChange}
               />
               <label htmlFor="password">Password Confirmation</label>
@@ -101,7 +101,7 @@ class Register extends React.Component {
             </Button>
           </form>
         </div>
-      </Modal>
+      </div>
     )
   }
 }
