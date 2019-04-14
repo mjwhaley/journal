@@ -2,6 +2,7 @@ import React from 'react'
 import 'bulma'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import Map from './map'
 
 import Auth from '../lib/auth'
 
@@ -9,60 +10,65 @@ class Entry extends React.Component {
   constructor() {
     super()
 
-    this.state = {
-      edit: false
-    }
-    this.handleDelete = this.handleDelete.bind(this)
-    this.handleEdit = this.handleEdit.bind(this)
-    this.isOwner = this.isOwner.bind(this)
+    this.state = {}
   }
 
-  isOwner() {
-    return Auth.isAuthenticated() && this.props.createdor === Auth.getPayload().sub
+  componentDidMount() {
+    axios.get(`/api/entries/${this.props.match.params.entryId}`)
+      .then(res => this.setState({ entry: res.data }))
   }
-
-  handleDelete() {
-    if (this.props.createor === Auth.getPayload().sub) {
-      axios.delete(`/api/entries/${this.props._id}`,
-        { headers: { Authorization: `Bearer ${Auth.getToken()}`}})
-        .then(() => {
-          this.props.onFetchEntries()
-        })
-        .catch(err => console.log(err.message))
-    } else {
-      console.log('not yours!')
-    }
-  }
-
-  handleEdit() {
-    this.setState({ edit: !this.state.edit })
-  }
-
   render() {
+    if (!this.state.entry) return null
+    const { entry } = this.state
     return(
-      <div className="column is-one-third">
+      <div className="column">
         <div className="card-large box">
+          <figure className="image is-3by2">
+            <img src={entry.header_image} alt={entry.title} />
+          </figure>
           <div className="card-header-title is-centered is-size-3">
-            {this.props.name}
+            {entry.title}
           </div>
           <br />
           <div className="has-text-centered is-size-5">
-            {this.props.description}
+            {entry.description}
           </div>
-          <div className="card-content">
-            <CreateCategory groupId={this.props._id}>Create Category</CreateCategory>
+          <div className="has-text-centered is-size-5">
+            {entry.description}
           </div>
+          <br />
           <div>
-
+            <Map
+              id="myMap"
+              options={{
+                center: { lat: 51.3865, lng: 0.5095  },
+                zoom: 8
+              }}
+              onMapLoad={map => {
+                var marker = new window.google.maps.Marker({
+                  position: { lat: 51.3865, lng: 0.5095 },
+                  map: map
+                })
+              }}
+            />
           </div>
+          <br />
+          <p className="title is-6 has-text-centered">Tags</p>
+          {entry.categories.map(category =>
+            <span key={category.id} className="tag is-large is-light is-rounded">
+              {category.name}
+            </span>
+          )}
+          <br />
           <hr />
-          <footer className="card-footer">
-            <Link to={`/groups/${this.props._id}/tasks`} className="button is-link card-footer-item subtitle is-6 has-text-white">
-              <strong className="has-text-white">Go to all Tasks</strong>
-            </Link>
-            {this.isOwner() && <button className="button is-warning subtitle is-6" onClick={this.handleEdit}><strong className="has-text-white">Edit</strong></button>}
-            {this.isOwner() && <button className="button is-danger  subtitle is-6" onClick={this.handleDelete}><strong className="has-text-white">Delete</strong></button>}
-          </footer>
+          <div className="subtitle is-6 is-left" >User: {entry.creator.username}</div>
+          <hr />
+          <p className="title is-6 has-text-centered">Comments</p>
+          {entry.comments.map(comment =>
+            <span key={comment.id} className="tag is-large is-primary">
+              {comment.content}
+            </span>
+          )}
         </div>
       </div>
     )

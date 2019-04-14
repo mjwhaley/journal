@@ -8,6 +8,7 @@ import Nav from './components/common/nav'
 import Footer from './components/common/footer'
 import Login from './auth/login'
 import Entries from './entries/entries'
+import Entry from './entries/entry'
 import Register from './auth/register'
 import ForgotPassword from './auth/forgotpassword'
 
@@ -18,6 +19,7 @@ const App = () => {
       <div>
         <Nav />
         <Switch>
+          <Route path="/entry/:entryId" component={Entry} />
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
           <Route path="/forgotpassword" component={ForgotPassword} />

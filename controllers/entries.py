@@ -13,6 +13,13 @@ comment_schema = CommentSchema()
 @api.route('/entries', methods=['GET'])
 def index():
     entries = Entry.query.all()
+
+    return entry_schema.jsonify(entries, many=True), 200
+
+# Index Route user only
+@api.route('/entries/user/<int:entry_creator>', methods=['GET'])
+def indexUser():
+    entries = Entry.query.get()
     return entry_schema.jsonify(entries, many=True), 200
 
 # Show Route

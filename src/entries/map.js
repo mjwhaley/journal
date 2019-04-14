@@ -3,7 +3,7 @@ import { render } from 'react-dom'
 
 class Map extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.onScriptLoad = this.onScriptLoad.bind(this)
   }
 
@@ -18,7 +18,7 @@ class Map extends Component {
     if (!window.google) {
       var s = document.createElement('script')
       s.type = 'text/javascript'
-      s.src = `https://maps.google.com/maps/api/js?key={process.env.GOOGLEMAPS}`
+      s.src = `https://maps.google.com/maps/api/js?key=AIzaSyDPao5zFT31HN_vYu30kweF_r8ijN7RtUg`
       var x = document.getElementsByTagName('script')[0]
       x.parentNode.insertBefore(s, x)
       s.addEventListener('load', e => {
@@ -31,24 +31,9 @@ class Map extends Component {
 
   render() {
     return (
-      <div style={{ width: 500, height: 500 }} id={this.props.id} />
+      <div style={{ width: '100%', height: 500 }} id={this.props.id} />
     )
   }
 }
 
 export default Map
-//
-// <Map
-//   id="myMap"
-//   options={{
-//     center: { lat: 51.3865, lng: 0.5095 },
-//     zoom: 8
-//   }}
-//   onMapLoad={map => {
-//     var marker = new window.google.maps.Marker({
-//       position: { lat: 51.3865, lng: 0.5095 },
-//       map: map,
-//       title: 'Hello Istanbul!'
-//     })
-//   }}
-// />
