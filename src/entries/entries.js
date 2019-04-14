@@ -4,7 +4,6 @@ import axios from 'axios'
 import Map from './map'
 
 const Entry = ({ header_image, title, mapLat, mapLng, description, url, creator }) => {
-  console.log(creator.username)
   return (
     <div className="column is-one-third">
       <div className="card large equal-height">
@@ -18,20 +17,6 @@ const Entry = ({ header_image, title, mapLat, mapLng, description, url, creator 
             <div className="media-content">
               <p className="title is-4 no-padding center">{title}</p>
               <hr />
-              <Map
-                id="myMap"
-                options={{
-                  center: { lat: 51.3865, lng: 0.5095 },
-                  zoom: 8
-                }}
-                onMapLoad={map => {
-                  var marker = new window.google.maps.Marker({
-                    position: { lat: 51.3865, lng: 0.5095 },
-                    map: map,
-                    title: 'Hello Istanbul!'
-                  })
-                }}
-              />
               <div className="media-content">
                 <div className="media-left">
                   <div className="title is-6">{description}</div>
@@ -69,7 +54,6 @@ class Entries extends React.Component {
 
 
   render() {
-    console.log(this.state)
     if(!this.state.entries) return null
     return(
       <Fragment>
