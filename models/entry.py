@@ -18,12 +18,12 @@ categories_entries = db.Table('categories_entries',
 class Entry(db.Model, BaseModel):
     __tablename__ = 'entries'
 
-    title = db.Column(db.String(80), nullable=False, unique=True)
+    title = db.Column(db.String(80), nullable=False)
     mapLat = db.Column(db.Float(10), nullable=False)
     mapLng = db.Column(db.Float(10), nullable=False)
     tags = db.Column(db.String(80))
     description = db.Column(db.String, nullable=False)
-    public = db.Column(db.Boolean, nullable=False)
+    ispublic = db.Column(db.Boolean, nullable=False)
     header_image = db.Column(db.String(200), nullable=False)
     categories = db.relationship('Category', secondary=categories_entries, backref='entries')
     creator_id = db.Column(db.Integer, db.ForeignKey('users.id'))

@@ -11,11 +11,25 @@ class Entry extends React.Component {
     super()
 
     this.state = {}
+
+    this.handleDelete = this.handleDelete.bind(this)
   }
 
   componentDidMount() {
     axios.get(`/api/entries/${this.props.match.params.entryId}`)
       .then(res => this.setState({ entry: res.data }))
+  }
+
+  handleDelete() {
+
+    axios.delete(`/api/entries/${this.props.match.params.entryId}`,
+      { headers: {Authorization: `Bearer ${Auth.getToken()}`}})
+      .then(() => this.props.history.push('/myentries'))
+      .catch(err => (console.log(err.messager)))
+  }
+
+  isOwner() {
+    return Auth.isAuthenticated() && this.state.entry.creator.id === Auth.getPayload().sub
   }
   render() {
     if (!this.state.entry) return null
@@ -23,6 +37,12 @@ class Entry extends React.Component {
     return(
       <div className="column">
         <div className="card-large box">
+          {entry.ispublic && Auth.getPayload().sub === entry.creator.id && <span className="button is-medium is-success is-fullwidth">
+            Public
+          </span>}
+          {!entry.ispublic && Auth.getPayload().sub === entry.creator.id && <span className="button is-medium is-danger is-fullwidth">
+            Private
+          </span>}
           <figure className="image is-3by2">
             <img src={entry.header_image} alt={entry.title} />
           </figure>
@@ -33,20 +53,17 @@ class Entry extends React.Component {
           <div className="has-text-centered is-size-5">
             {entry.description}
           </div>
-          <div className="has-text-centered is-size-5">
-            {entry.description}
-          </div>
           <br />
           <div>
             <Map
               id="myMap"
               options={{
-                center: { lat: 51.3865, lng: 0.5095  },
+                center: { lat: entry.mapLat, lng: entry.mapLng },
                 zoom: 8
               }}
               onMapLoad={map => {
-                var marker = new window.google.maps.Marker({
-                  position: { lat: 51.3865, lng: 0.5095 },
+                new window.google.maps.Marker({
+                  position: { lat: entry.mapLat, lng: entry.mapLng },
                   map: map
                 })
               }}
@@ -70,6 +87,9 @@ class Entry extends React.Component {
             </span>
           )}
         </div>
+        {this.isOwner() && <Link className="button is-warning is-fullwidth" to={`/entries/${entry.id}/edit`}>Edit Entry</Link>}
+        <br />
+        {this.isOwner() && <button className="button is-danger is-fullwidth" onClick={this.handleDelete}>Delete Entry</button>}
       </div>
     )
   }

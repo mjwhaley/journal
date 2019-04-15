@@ -26,6 +26,9 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bulma": "^0.7.4",
+    "dotenv": "^7.0.0",
+    "dotenv-webpack": "^1.7.0",
+    "filestack-js": "^2.0.6",
     "materialize-css": "^1.0.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",

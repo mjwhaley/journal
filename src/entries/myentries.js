@@ -11,6 +11,12 @@ const Entry = ({ header_image, title, mapLat, mapLng, description, url, creator,
     <div className="column is-one-third">
       <Link to={`/entry/${id}`}>
         <div className="card equal-height">
+          {ispublic && <span className="button is-small is-success is-fullwidth">
+            Public
+          </span>}
+          {!ispublic && <span className="button is-small is-danger is-fullwidth">
+              Private
+          </span>}
           <div className="card-image">
             <figure className="image is-3by2">
               <img src={header_image} alt={title} />
@@ -44,7 +50,7 @@ const Entry = ({ header_image, title, mapLat, mapLng, description, url, creator,
   )
 }
 
-class Entries extends React.Component {
+class MyEntries extends React.Component {
   constructor() {
     super()
 
@@ -67,7 +73,7 @@ class Entries extends React.Component {
 
   filterEntries() {
     const entries = this.state.entries.filter(entry => {
-      return entry.ispublic === true
+      return Auth.getPayload().sub === entry.creator.id
     })
     return entries
   }
@@ -90,4 +96,4 @@ class Entries extends React.Component {
   }
 }
 
-export default Entries
+export default MyEntries

@@ -61,8 +61,8 @@ class Nav extends React.Component {
                     <i className="fas fa-user"></i>
                   </span></Link>}
                 <div className="navbar-dropdown">
-                  {Auth.isAuthenticated() && <Link to="/entry" className="navbar-item">New Entry</Link>}
-                  {Auth.isAuthenticated() && <Link to="/myEntries" className="navbar-item">My Entries</Link>}
+                  {Auth.isAuthenticated() && <Link to="/entry/create" className="navbar-item">New Entry</Link>}
+                  {Auth.isAuthenticated() && <Link to="/myentries" className="navbar-item">My Entries</Link>}
                   {Auth.isAuthenticated() && <Link to="/myProfile" className="navbar-item">My Profile</Link>}
                   <hr className="navbar-divider" />
                   {Auth.isAuthenticated() && <Link to="/" className="navbar-item" onClick={Auth.logout}>Logout</Link>}
