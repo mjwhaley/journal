@@ -1,6 +1,7 @@
 import React from 'react'
+import Select from 'react-select'
 
-const EntryForm = ({ handlePhotoModal, handleChangeRadio, handleChange, handleSubmit, data, errors, categories, image }) => {
+const EntryForm = ({ handleSelect, handlePhotoModal, handleChangeRadio, handleChange, handleSubmit, data, errors, categories, image }) => {
   if (!categories) return null
   return (
     <form onSubmit={handleSubmit}>
@@ -76,19 +77,15 @@ const EntryForm = ({ handlePhotoModal, handleChangeRadio, handleChange, handleSu
         </div>
       </div>
       <div className="control">
-        <div className="select is-fullwidth">
-          <select
-            onChange={handleChange}
-            name="category_id">
-            <option>Select dropdown</option>
-            {categories.map(category =>
-              <option
-                key={category.id}
-                value={category.id}>
-                {category.name}
-              </option>
-            )}
-          </select>
+        <div className="select is-multiple is-fullwidth">
+          <Select
+            isMulti
+            name="category_id"
+            onChange={handleSelect}
+            options={categories}
+            className="basic-multi-select"
+            classNamePrefix="select"
+          />
         </div>
       </div>
       <br />

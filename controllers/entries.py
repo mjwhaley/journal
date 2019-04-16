@@ -35,11 +35,14 @@ def create():
     entry, errors = entry_schema.load(data)
     if errors:
         return jsonify(errors), 422
-    category = Category.query.get(data['category_id'])
+    categories = list(data['category_id'])
+    for x in categories:
+        category = Category.query.get(x)
+        entry.categories.append(category)
     entry.creator = g.current_user
-    entry.categories.append(category)
     entry.save()
     return entry_schema.jsonify(entry)
+
 #Edit
 @api.route('/entries/<int:entry_id>', methods=['PUT'])
 @secure_route

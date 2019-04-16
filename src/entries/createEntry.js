@@ -16,6 +16,7 @@ class CreateEntry extends React.Component {
     },
     errors: {},
     categories: '',
+    categoriesForm: [],
     header_image: ''
     }
 
@@ -23,6 +24,7 @@ class CreateEntry extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChangeRadio = this.handleChangeRadio.bind(this)
     this.handlePhotoModal = this.handlePhotoModal.bind(this)
+    this.handleSelect = this.handleSelect.bind(this)
 
   }
 
@@ -31,9 +33,16 @@ class CreateEntry extends React.Component {
     this.setState({ data })
   }
 
+  handleSelect(selected){
+    const categoriesForm = selected.map(item => item.value)
+    this.setState({ categoriesForm }, () => console.log(this.state.categoriesForm))
+  }
+
+
   componentDidMount() {
     axios.get('/api/categories')
-      .then(res => this.setState({ categories: res.data }))
+      .then(res => res.data.map(item => ({ value: item.id, label: item.name })))
+      .then(categories => this.setState({ categories }))
   }
 
   handleChangeRadio() {
@@ -44,9 +53,11 @@ class CreateEntry extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    const data = {...this.state.data, header_image: this.state.header_image}
+    const headerImage = this.state.header_image ? this.state.header_image : this.state.data.header_image
+    const data = {...this.state.data, header_image: headerImage, category_id: this.state.categoriesForm}
+    console.log(data)
     axios.post('/api/entries',
-      this.state.data,
+      data,
       { headers: { Authorization: `Bearer ${Auth.getToken() }`}})
       .then((res) => this.props.history.push(`/entry/${res.data.id}`))
       .catch(err => console.log(err.response))
@@ -69,6 +80,7 @@ class CreateEntry extends React.Component {
         <div className="container">
           <EntryForm
             handleChange={this.handleChange}
+            handleSelect={this.handleSelect}
             handleSubmit={this.handleSubmit}
             handleChangeRadio={this.handleChangeRadio}
             handlePhotoModal={this.handlePhotoModal}

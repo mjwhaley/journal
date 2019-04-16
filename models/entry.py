@@ -24,7 +24,7 @@ class Entry(db.Model, BaseModel):
     tags = db.Column(db.String(80))
     description = db.Column(db.String, nullable=False)
     ispublic = db.Column(db.Boolean, nullable=False)
-    header_image = db.Column(db.String(200), nullable=False)
+    header_image = db.Column(db.String(400), nullable=False)
     categories = db.relationship('Category', secondary=categories_entries, backref='entries')
     creator_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     creator = db.relationship('User', backref='created_entries')

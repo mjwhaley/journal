@@ -14,7 +14,7 @@ class Footer extends React.Component {
         <nav className="level">
           <div className="level-left">
             <div className="level-item has-text-centered">
-              <p className="subtitle is-5">Journal: Powered by
+              <p className="subtitle is-5"> Journal: Powered by
                 <a href="https://www.triple13.co.uk"> Triple13 Ltd</a>
               </p>
             </div>
