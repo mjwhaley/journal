@@ -39,7 +39,7 @@ module.exports = {
       filename: 'index.html',
       inject: 'body'
     }),
-    new Dotenv(),
+    process.env.NODE_ENV === 'production' ? new webpack.EnvironmentPlugin({ ...process.env }) : new Dotenv(),
     new CopyWebpackPlugin([
       { from: './src/assets', to: 'assets' }
     ])
