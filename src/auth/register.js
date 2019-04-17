@@ -13,7 +13,7 @@ class Register extends React.Component {
         username: '',
         email: '',
         password: '',
-        passwordConfirmation: ''
+        password_confirmation: ''
       }
     }
 
@@ -34,6 +34,7 @@ class Register extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault()
+    console.log(this.state.data)
     axios.post('/api/register', this.state.data)
       .then(res => {
         Auth.setToken(res.data.token)
@@ -113,7 +114,7 @@ class Register extends React.Component {
                     <div className="control">
                       <input
                         className="input is-medium"
-                        name="passwordConfirmation"
+                        name="password_confirmation"
                         type="password"
                         placeholder="Confirm Password"
                         value={this.state.data.passwordConfirmation}
